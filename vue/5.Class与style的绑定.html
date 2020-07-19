@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+     <!-- 1.绑定class -->
+     <div id="root"
+          class="static"
+          v-bind:class="{ active: isActive, 'text-danger': hasError }"
+     ></div>
+        <!-- 和如下 data： -->
+        <script>
+        var vm = new Vue({
+            el:"#root",
+            data: {
+                isActive: true,
+                hasError: false
+        } 
+        })
+        //2.class用在组件上
+         Vue.component('my-component', {
+               template: '<p class="foo bar">Hi</p>'
+        })
+        //然后在使用它的时候添加一些 class：
+        // <my-component class="baz boo"></my-component>
+        // HTML 将被渲染为：
+        // <p class="foo bar baz boo">Hi</p>
+
+        //3.绑定内联样式
+                // <div v-bind:style="styleObject"></div> html里
+
+                // data: {
+                // styleObject: {
+                // color: 'red',
+                // fontSize: '13px'
+                // }
+                // }
+        </script>
+</body>
+</html>

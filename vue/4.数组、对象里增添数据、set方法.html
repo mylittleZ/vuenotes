@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组、对象里增加数据/set方法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+         <div v-for="(item,key,index) of userinfo">{{item}}---{{key}}----{{index}}</div> <!--key就是对应的键名 -->
+        <div v-for="(item,index) of userlist">{{item}}---{{index}}</div>
+    </div>
+    <script>
+        var vm =new Vue({
+            el:"#app",
+            data:{
+                userinfo:{         //userinfo是一个对象
+                    name:"zhao",
+                    age:18,
+                    sex:"woman"
+                },
+                userlist:[1,2,3,4]  //userinfo是一个数组
+            }
+        })
+        //往对象里改数据
+        //1.改对象的引用
+        //2.用set方法
+      Vue.set(Vue.set(vm.userinfo,"addr","beijing"))  //全局向对象中添加一项数据，是响应式的
+      //vm.$set(Vue.set(vm.userinfo,"addr","beijing"))  //实例上
+
+
+
+      //往数组里添加数据一共三种方法 是数据变了页面跟着变 
+      //1.使用数组的变异方法 push pop splice等等
+      //2.直接改变数组的引用，即把[]里自己再写一遍
+      // ！！！千万不要通过下标去改，增加数据，因为不是响应式的，数据里改了，页面显示还没改
+      //3.set方法
+      Vue.set(vm.userlist,1,5)  //即把下标为1的数字改为5
+      vm.$set(vm.userlist,2,10)
+    </script>
+
+</body>
+</html>

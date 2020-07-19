@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todolist 父子组件传值</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+         <div id="app">  <!--父组件即id=app元素下的所有内容即最外层vue实例下的模板 -->
+            <input type="text" v-model="inputValue">
+            <button v-on:click="handleBtnClick">提交</button>
+            <ul>                        
+                <todo-item        
+                   :content="item"  
+                   :index="index"
+                   v-for="(item, index) in list"
+                   @delete="handleItemDelete"  
+                   >    <!-- 父组件通过v-bind即：把数据传给子组件，因为list是父组件上的 -->
+               </todo-item>              
+            </ul>
+        </div>
+    <script>
+        Vue.component("TodoItem",{               //todo-item子组件
+            props:["content","index"],          //子组件通过props属性接收父组件传来的数据
+            template:"<li @click ='handleItemClick'>{{content}}</li>",
+            methods:{
+                handleItemClick:function(){
+                this.$emit("delete",this.index)    //子组件向父组件传值，去删list中的某一项，要通过$emit绑定事件，this.index作为参数传给父组件
+                                          //然后将新的函数绑定在父组件实例中 以及v-on
+            }
+            }      
+        })
+      var app = new Vue({
+          el:"#app",
+          data:{
+            list:[],
+            inputValue:''
+          },
+          methods:{
+            handleBtnClick:function(){
+                this.list.push(this.inputValue)
+                this.inputValue=''
+            },
+            handleItemDelete:function(index){
+                console.log(index)
+                 this.list.splice(index,1)
+            }
+          }
+      })
+    </script>
+</body>
+</html>

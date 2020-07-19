@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+        <div id="app">{{name}}    <!-- 第一种模板语法插值表达式 也可以写js表达式 -->
+            <div v-text="name + 'xiao'"></div>  <!--v-指令后面跟的不会是一个字符串而是一个js表达式 v-text和插值表达式功能一样 -->
+             <div v-html="name"></div>  <!--会解析html标签，带样式 -->
+           </div>
+       <script>
+         var  vm = new Vue({
+             el:"#app",
+             data:{
+                 name:"<h1>zhao</h1>"
+             }
+         })
+   //js表达式 但是对于复杂的逻辑最好都是用计算属性
+   //  {{ number + 1 }}      {{ ok ? 'YES' : 'NO' }}    {{ message.split('').reverse().join('') }}
+   
+   // <div v-bind:id="'list-' + id"></div>
+   
+   //v-bind缩写为：，动态参数缩写为:[key]
+   //v-on 缩写@,动态参数的缩写@[event]
+   
+   
+       </script>
+       
+</body>
+</html>
